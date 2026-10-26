@@ -35,7 +35,7 @@ The plugin itself sends nothing. When Claude runs the tool, the tool talks only 
 - **Gmail**, with the Google account you connect: to sync your mail.
 - memo also reads what the other WireCat tools already stored on your computer (Telegram, MAX, WhatsApp, Zoom, Drive).
 
-What the tool downloads stays in its local store on your computer, until you delete it. WireCat runs no server that receives your data.
+What the tool downloads stays in its local store on your computer, until you delete it. Neither the plugin nor the tool sends anything to WireCat. Only WireCat Desktop, a separate app, sends a bug report to WireCat, and only when you choose "Report this".
 
 ## Where the skill comes from
 

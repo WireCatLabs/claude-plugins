@@ -34,7 +34,7 @@ The plugin itself sends nothing. When Claude runs the tool, the tool talks only 
 
 - **Telegram's servers**, with the account you sign in with: to read and send your messages.
 
-What the tool downloads stays in its local store on your computer, until you delete it. WireCat runs no server that receives your data.
+What the tool downloads stays in its local store on your computer, until you delete it. Neither the plugin nor the tool sends anything to WireCat. Only WireCat Desktop, a separate app, sends a bug report to WireCat, and only when you choose "Report this".
 
 ## Where the skill comes from
 
