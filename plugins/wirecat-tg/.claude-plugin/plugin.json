@@ -1,7 +1,7 @@
 {
   "name": "wirecat-tg",
   "displayName": "WireCat for Telegram",
-  "version": "0.93.0",
+  "version": "0.94.0",
   "description": "Read, search and send messages in your own Telegram account through the tg command line tool.",
   "author": {
     "name": "WireCat",
