@@ -1,0 +1,28 @@
+{
+  "name": "wirecat-max",
+  "displayName": "WireCat for MAX",
+  "version": "0.77.0",
+  "description": "Read, search and send messages in your own MAX Messenger account and from your MAX bots through the max command line tool.",
+  "author": {
+    "name": "WireCat",
+    "url": "https://wirecat.dev"
+  },
+  "homepage": "https://wirecat.dev/en/docs/max",
+  "repository": "https://github.com/WireCatLabs/claude-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "wirecat",
+    "cli",
+    "skill"
+  ],
+  "documentationUrl": "https://wirecat.dev/en/docs/max",
+  "supportUrl": "https://github.com/WireCatLabs/max-cli/issues",
+  "privacyPolicyUrl": "https://wirecat.dev/en/privacy",
+  "termsOfServiceUrl": "https://wirecat.dev/en/terms",
+  "metadata": {
+    "source": {
+      "npm": "@wirecat/max-cli",
+      "skill": "max-cli"
+    }
+  }
+}

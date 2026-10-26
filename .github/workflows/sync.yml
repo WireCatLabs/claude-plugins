@@ -1,0 +1,55 @@
+name: Sync skills
+
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-skills
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - run: npm install -g @anthropic-ai/claude-code@2.1.310
+      - run: bin/sync-skills | tee "$RUNNER_TEMP/changes.txt"
+      # A pull request opened with the workflow token starts no other workflow, so validate here.
+      - run: bin/validate
+      - name: Open or update the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No skill changed."
+            exit 0
+          fi
+          {
+            echo "Skills copied from the latest npm release of each tool:"
+            echo
+            sed 's/^/- /' "$RUNNER_TEMP/changes.txt"
+            echo
+            echo "\`bin/validate\` passed in the sync run. The Validate workflow does not start on a pull request"
+            echo "that GitHub Actions opened; push any commit to this branch to run it."
+          } > "$RUNNER_TEMP/body.md"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
+          git checkout -B sync/skills
+          git add -A
+          git commit -q -m "chore(skills): sync from npm releases" -m "$(cat "$RUNNER_TEMP/changes.txt")"
+          git push --force origin sync/skills
+          if gh pr view sync/skills --json state --jq .state | grep -qx OPEN; then
+            gh pr edit sync/skills --body-file "$RUNNER_TEMP/body.md"
+          elif ! gh pr create --head sync/skills --title "chore(skills): sync from npm releases" --body-file "$RUNNER_TEMP/body.md"; then
+            echo "::error::Branch sync/skills is pushed, but this repository does not let GitHub Actions open pull requests. Open it by hand: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/compare/main...sync/skills"
+            exit 1
+          fi

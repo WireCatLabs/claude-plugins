@@ -1,0 +1,34 @@
+{
+  "name": "wirecat",
+  "description": "WireCat skills for Claude Code: your messengers, meetings, Drive and notes through local command line tools",
+  "owner": {
+    "name": "WireCat",
+    "url": "https://wirecat.dev"
+  },
+  "plugins": [
+    {
+      "name": "wirecat-tg",
+      "source": "./plugins/wirecat-tg"
+    },
+    {
+      "name": "wirecat-max",
+      "source": "./plugins/wirecat-max"
+    },
+    {
+      "name": "wirecat-wa",
+      "source": "./plugins/wirecat-wa"
+    },
+    {
+      "name": "wirecat-zoom",
+      "source": "./plugins/wirecat-zoom"
+    },
+    {
+      "name": "wirecat-drive",
+      "source": "./plugins/wirecat-drive"
+    },
+    {
+      "name": "wirecat-memo",
+      "source": "./plugins/wirecat-memo"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "wirecat-tg",
+  "displayName": "WireCat for Telegram",
+  "version": "0.93.0",
+  "description": "Read, search and send messages in your own Telegram account through the tg command line tool.",
+  "author": {
+    "name": "WireCat",
+    "url": "https://wirecat.dev"
+  },
+  "homepage": "https://wirecat.dev/en/docs/tg",
+  "repository": "https://github.com/WireCatLabs/claude-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "wirecat",
+    "cli",
+    "skill"
+  ],
+  "documentationUrl": "https://wirecat.dev/en/docs/tg",
+  "supportUrl": "https://github.com/WireCatLabs/tg-cli/issues",
+  "privacyPolicyUrl": "https://wirecat.dev/en/privacy",
+  "termsOfServiceUrl": "https://wirecat.dev/en/terms",
+  "metadata": {
+    "source": {
+      "npm": "@wirecat/tg-cli",
+      "skill": "tg-cli"
+    }
+  }
+}

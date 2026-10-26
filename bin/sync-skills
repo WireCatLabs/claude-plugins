@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Copies each plugin's skill from the latest npm release of its tool. Prints one line per plugin it changed.
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+
+for manifest in "$root"/plugins/*/.claude-plugin/plugin.json; do
+  plugin_dir="$(dirname "$(dirname "$manifest")")"
+  plugin="$(basename "$plugin_dir")"
+  package="$(jq -er '.metadata.source.npm' "$manifest")"
+  skill="$(jq -er '.metadata.source.skill' "$manifest")"
+  version="$(npm view "$package" version)"
+
+  mkdir "$work/$plugin"
+  (cd "$work/$plugin" && npm pack "$package@$version" --silent >/dev/null && tar -xzf ./*.tgz)
+  from="$work/$plugin/package/skills/$skill"
+  to="$plugin_dir/skills/$skill"
+  if [[ ! -f "$from/SKILL.md" ]]; then
+    echo "$package@$version has no skills/$skill/SKILL.md" >&2
+    exit 1
+  fi
+
+  # Only a changed skill moves the version: the tools release far more often than their skills change.
+  if diff -rq "$from" "$to" >/dev/null 2>&1; then
+    continue
+  fi
+  rm -rf "$to"
+  mkdir -p "$(dirname "$to")"
+  cp -RL "$from" "$to"
+  jq --arg version "$version" '.version = $version' "$manifest" >"$work/plugin.json"
+  mv "$work/plugin.json" "$manifest"
+  echo "$plugin: skill $skill from $package@$version"
+done

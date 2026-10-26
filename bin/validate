@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# The marketplace, then each plugin against the directory's submission checks that the CLI can run.
+set -euo pipefail
+
+root="$(cd "$(dirname "$0")/.." && pwd)"
+claude plugin validate --strict "$root"
+for plugin in "$root"/plugins/*/; do
+  claude plugin validate --strict --profile directory "$plugin"
+done

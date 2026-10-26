@@ -1,0 +1,28 @@
+{
+  "name": "wirecat-zoom",
+  "displayName": "WireCat for Zoom",
+  "version": "0.50.0",
+  "description": "Archive your Zoom cloud recordings and search their transcripts and summaries through the zm command line tool.",
+  "author": {
+    "name": "WireCat",
+    "url": "https://wirecat.dev"
+  },
+  "homepage": "https://wirecat.dev/en/docs/zoom",
+  "repository": "https://github.com/WireCatLabs/claude-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "wirecat",
+    "cli",
+    "skill"
+  ],
+  "documentationUrl": "https://wirecat.dev/en/docs/zoom",
+  "supportUrl": "https://github.com/WireCatLabs/zoom-cli/issues",
+  "privacyPolicyUrl": "https://wirecat.dev/en/privacy",
+  "termsOfServiceUrl": "https://wirecat.dev/en/terms",
+  "metadata": {
+    "source": {
+      "npm": "@wirecat/zoom-cli",
+      "skill": "zoom-cli"
+    }
+  }
+}
