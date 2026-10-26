@@ -28,6 +28,15 @@ Or in a Claude Code session: `/plugin install wirecat-memo --marketplace WireCat
 When you ask about the things above, Claude runs `memo` commands on your computer, as you. `memo` keeps its data in
 a local store on your computer and talks only to the services you connect it to, with the accounts you sign in with. See [the memo documentation](https://wirecat.dev/en/docs/memo) and the [privacy policy](https://wirecat.dev/en/privacy).
 
+## Where your data goes
+
+The plugin itself sends nothing. When Claude runs the tool, the tool talks only to:
+
+- **Gmail**, with the Google account you connect: to sync your mail.
+- memo also reads what the other WireCat tools already stored on your computer (Telegram, MAX, WhatsApp, Zoom, Drive).
+
+What the tool downloads stays in its local store on your computer, until you delete it. WireCat runs no server that receives your data.
+
 ## Where the skill comes from
 
 The skill is a copy of `skills/cli-memo/SKILL.md` from the latest npm release of `@wirecat/cli-memo`
