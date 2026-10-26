@@ -28,6 +28,14 @@ Or in a Claude Code session: `/plugin install wirecat-drive --marketplace WireCa
 When you ask about the things above, Claude runs `drive` commands on your computer, as you. `drive` keeps its data in
 a local store on your computer and talks only to the services you connect it to, with the accounts you sign in with. See [the drive documentation](https://wirecat.dev/en/docs/drive) and the [privacy policy](https://wirecat.dev/en/privacy).
 
+## Where your data goes
+
+The plugin itself sends nothing. When Claude runs the tool, the tool talks only to:
+
+- **Google Drive**, with the Google account you sign in with: to download the folders you choose.
+
+What the tool downloads stays in its local store on your computer, until you delete it. WireCat runs no server that receives your data.
+
 ## Where the skill comes from
 
 The skill is a copy of `skills/drive-cli/SKILL.md` from the latest npm release of `@wirecat/drive-cli`

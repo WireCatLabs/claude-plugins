@@ -28,6 +28,14 @@ Or in a Claude Code session: `/plugin install wirecat-tg --marketplace WireCatLa
 When you ask about the things above, Claude runs `tg` commands on your computer, as you. `tg` keeps its data in
 a local store on your computer and talks only to the services you connect it to, with the accounts you sign in with. See [the tg documentation](https://wirecat.dev/en/docs/tg) and the [privacy policy](https://wirecat.dev/en/privacy).
 
+## Where your data goes
+
+The plugin itself sends nothing. When Claude runs the tool, the tool talks only to:
+
+- **Telegram's servers**, with the account you sign in with: to read and send your messages.
+
+What the tool downloads stays in its local store on your computer, until you delete it. WireCat runs no server that receives your data.
+
 ## Where the skill comes from
 
 The skill is a copy of `skills/tg-cli/SKILL.md` from the latest npm release of `@wirecat/tg-cli`
