@@ -35,7 +35,7 @@ The plugin itself sends nothing. When Claude runs the tool, the tool talks only 
 - **Zoom's servers**, with the account you sign in with: to download your cloud recordings and their transcripts.
 - **An embedding service you choose**, only if you set one up for search (for example OpenAI). By default search runs on your computer, and `--offline` refuses remote calls.
 
-What the tool downloads stays in its local store on your computer, until you delete it. WireCat runs no server that receives your data.
+What the tool downloads stays in its local store on your computer, until you delete it. Neither the plugin nor the tool sends anything to WireCat. Only WireCat Desktop, a separate app, sends a bug report to WireCat, and only when you choose "Report this".
 
 ## Where the skill comes from
 
