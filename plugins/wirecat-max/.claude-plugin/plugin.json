@@ -1,7 +1,7 @@
 {
   "name": "wirecat-max",
   "displayName": "WireCat for MAX",
-  "version": "0.79.0",
+  "version": "0.82.0",
   "description": "Read, search and send messages in your own MAX Messenger account and from your MAX bots through the max command line tool.",
   "author": {
     "name": "WireCat",
