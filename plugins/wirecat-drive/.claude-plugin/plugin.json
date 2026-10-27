@@ -1,7 +1,7 @@
 {
   "name": "wirecat-drive",
   "displayName": "WireCat for Google Drive",
-  "version": "0.40.0",
+  "version": "0.43.0",
   "description": "Search and read the Google Drive folders you choose, offline, through the drive command line tool.",
   "author": {
     "name": "WireCat",
