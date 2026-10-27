@@ -181,13 +181,18 @@ Follow row/text/candidate bounds; unknown coverage remains unknown.
 above when you can run them. It serves them as `zm_tools_search`, `zm_read` and `zm_write`, with the same
 permissions as the command line; a call answers as the command does. Over MCP a change at level `ask` runs without a question.
 
-`remote-meetings` uses numeric remote ids. Create/update/cancel ask first: without a terminal `--yes`
+`zoom search [words] --only chat,docs,meetings` asks Zoom's own search live: it reaches chat and docs zm does not
+archive, but matches exact words only and gives no line for a meeting; prefer `search meetings` for stored meetings.
+
+`contacts list` reads company and external Zoom contacts live (`name:`, `email:`, `type:` narrow it); `contacts show` takes
+the `id` it returns, a Zoom user id or an email. `remote-meetings` uses numeric remote ids. Create/update/cancel ask first: without a terminal `--yes`
 applies an authorized change once (else exit 7), and `--dry-run` always previews. Exit 14 means an uncertain dispatched
 write: inspect remote state before retrying. Never automatically replay creation or cancellation.
 Tokens stay in the keyring. Missing scopes require app changes and a new login; cached session status
 is local, while `--check` verifies remotely. To log in, run `zm personal session start` in the background, read the
 URL after `Open this URL to approve Zoom login:` and give it to the person as a link; their browser must be on
-this computer. `--no-input` cannot approve it. `--timeout` bounds finite commands; watch/MCP are foreground lifetimes.
+this computer. The owner can also sign in from WireCat Desktop (Tools → Zoom → Manage). `--no-input` cannot approve
+it. `--timeout` bounds finite commands; watch/MCP are foreground lifetimes.
 
 ## Discover candidate scheduled series
 

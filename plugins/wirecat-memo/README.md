@@ -39,7 +39,7 @@ What the tool downloads stays in its local store on your computer, until you del
 
 ## Where the skill comes from
 
-The skill is a copy of `skills/cli-memo/SKILL.md` from the latest npm release of `@wirecat/cli-memo`
+The skill is a copy of `skills/wirecat-memo/SKILL.md` from the latest npm release of `@wirecat/cli-memo`
 ([source](https://github.com/WireCatLabs/cli-memo)). The plugin's `version` is that release. Report problems with the
 skill in [that repository's issues](https://github.com/WireCatLabs/cli-memo/issues).
 
