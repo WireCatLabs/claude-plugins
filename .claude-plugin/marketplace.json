@@ -15,8 +15,8 @@
       "source": "./plugins/wirecat-max"
     },
     {
-      "name": "wirecat-wa",
-      "source": "./plugins/wirecat-wa"
+      "name": "wirecat-whatsapp",
+      "source": "./plugins/wirecat-whatsapp"
     },
     {
       "name": "wirecat-zoom",

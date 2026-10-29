@@ -18,10 +18,10 @@ In your shell:
 
 ```sh
 claude plugin marketplace add WireCatLabs/claude-plugins
-claude plugin install wirecat-wa@wirecat
+claude plugin install wirecat-whatsapp@wirecat
 ```
 
-Or in a Claude Code session: `/plugin install wirecat-wa --marketplace WireCatLabs/claude-plugins`.
+Or in a Claude Code session: `/plugin install wirecat-whatsapp --marketplace WireCatLabs/claude-plugins`.
 
 ## What the skill makes Claude do
 

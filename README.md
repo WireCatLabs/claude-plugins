@@ -15,7 +15,7 @@ claude plugin install wirecat-tg@wirecat
 | --- | --- | --- |
 | `wirecat-tg` | [Telegram](https://wirecat.dev/en/docs/tg) | `tg` |
 | `wirecat-max` | [MAX](https://wirecat.dev/en/docs/max) | `max` |
-| `wirecat-wa` | [WhatsApp](https://wirecat.dev/en/docs/wa) | `wa` |
+| `wirecat-whatsapp` | [WhatsApp](https://wirecat.dev/en/docs/wa) | `wa` |
 | `wirecat-zoom` | [Zoom](https://wirecat.dev/en/docs/zoom) | `zm` |
 | `wirecat-drive` | [Google Drive](https://wirecat.dev/en/docs/drive) | `drive` |
 | `wirecat-memo` | [Memo](https://wirecat.dev/en/docs/memo) | `memo` |
