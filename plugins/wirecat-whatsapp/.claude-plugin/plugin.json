@@ -1,5 +1,5 @@
 {
-  "name": "wirecat-wa",
+  "name": "wirecat-whatsapp",
   "displayName": "WireCat for WhatsApp",
   "version": "0.11.0",
   "description": "Read, search and send messages in your own WhatsApp account through the wa command line tool.",
