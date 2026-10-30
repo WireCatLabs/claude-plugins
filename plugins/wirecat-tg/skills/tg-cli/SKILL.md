@@ -41,7 +41,8 @@ before action; it opens no messenger connection, reserves no write and leaves ta
 See the [CLI contract](https://github.com/WireCatLabs/tg-cli/blob/main/docs/cli-contract.md).
 
 The command line is the default. MCP is the rare case for a client that cannot run commands (a chat app,
-a remote agent): `tg <profile> mcp` starts the server, `tg <profile> mcp config` prints the client entry.
+a remote agent): `tg <profile> mcp serve` starts the server, `tg <profile> mcp config` prints the client entry.
+One server for several profiles: `tg mcp serve --profiles work,personal` or `--profiles all`; with neither it refuses.
 Its permissions are the profile's, the same as on the command line. Prefer the commands above when you can run them.
 MCP uses `tg_tools_search`, then `tg_read` or `tg_write` with `{command, arguments}`.
 Use the CLI path such as `stats messages show`.
@@ -121,7 +122,8 @@ because it waits for the scan and the shell tool shows nothing until it exits. R
 paste the QR text block into the chat as a code block, exactly as printed. When a new block is
 printed, paste it and say the old one expired. With `--json` each code is also a stderr line
 `{"event":"qr","qr":{"text","expires_at","scan"}}`. Login is not an MCP tool: with only MCP, ask
-the owner to run the command. Existing sessions are checked without a new login. Missing keyring access
+the owner to run the command in a terminal or to sign in from WireCat Desktop (Tools → Telegram → Manage).
+Existing sessions are checked without a new login. Missing keyring access
 requires fixing the environment, not another login. Pick a chat and an amount of history with
 the owner before `tg personal messages sync <chat> --last 100`; setup starts no background service.
 
@@ -307,6 +309,7 @@ tg personal chats list --json                      # find a chat, take its id
 tg personal chats list 'title:*vale* kind:group unread_count>0' --offline --json  # filtered, from the local store
 tg personal chats events -1001234567890 'time>=7d' --json  # who joined, left, was added or removed
 tg personal chats members list -1001234567890 --json  # a group's members, paged
+tg personal reactions list -1001234567890 4242 reaction:🔥 --json  # who reacted; refused (reason reactions.*) where the chat hides it
 tg personal chats inspect https://t.me/+AbCd --json  # where an invite leads, without joining
 tg personal topics list -1001234567890 --json        # a forum's topics; a message's threadId is one of them
 tg personal topics show -1001234567890 12 --json     # one topic: title, closed, pinned, last activity
@@ -329,7 +332,7 @@ tg personal search conversations "<question>" --json  # by meaning, after the ow
 tg personal watch --jsonl                          # new messages as {"type":"item","data"} lines, then a {"type":"end"} line
 ```
 
-An agent without a terminal (Claude Desktop, Cursor) uses the MCP server instead: `tg personal mcp`. The
+An agent without a terminal (Claude Desktop, Cursor) uses the MCP server instead: `tg personal mcp serve`. The
 profile's `permissions` decide which commands may run, through `tg_tools_search`, `tg_read` and
 `tg_write`. Discovery keeps denied commands and their arguments, marking current unavailability
 with a reason and permission key. There is no confirmation form. `tg personal mcp config` prints the entry with full paths.
@@ -380,10 +383,10 @@ Never ask the owner to paste a credential into argv, print one, or fall back to 
 
 Use `tg personal stats chats show <chat> --offline --json` for stored group/channel activity. The online command also
 requests joins/leaves; MCP and offline results omit `members`. Incomplete counts are lower bounds.
-`tg personal mcp --http --public-url https://<name>.ts.net` serves behind your tunnel with its own owner-code login;
+`tg personal mcp serve --http --public-url https://<name>.ts.net` serves behind your tunnel with its own owner-code login;
 MCP has no server forms. `deny`/`readonly` block writes; `ask`/`allow` permit the requested write.
 Repeat `--permission key=level` to tighten permissions for the server; it never loosens them. Never change permissions to bypass a refusal.
-`tg personal mcp --revoke` forgets browser logins for the profile.
+`tg personal mcp revoke` forgets browser logins for the profile.
 
 `tg personal chats members check <chat> --json` reads member pages with reasons; it removes nobody.
 Treat scores as hints; check `more` and `unknown`, and review each person before any moderation action.
@@ -489,8 +492,8 @@ from the store only; `prepare.coverage` says what was left out.
 To summarise what one person said, call `contacts context <person> --chat <chat> --limit <n>` (MCP:
 `chats` and `limit`); the answer is `{ at, text }` per message. Ask for `-v` (MCP `detail: 1`) only when
 you need message ids or locators. Only `contacts context` without `--chat` gathers identities linked
-with `contacts link`; `contacts info` and `--chat` read the named account only. `contacts info`
-never prints a whole phone number unless the owner asks for `--show-phone`; MCP always hides it.
+with `contacts link`; `contacts show` and `--chat` read the named account only. `contacts show`
+prints the whole phone number, as the other commands that show one; `--hide-phone` leaves it out.
 `contacts check` sends the person's Telegram id to the public spam lists CAS and lols.bot; use
 `--no-registries` (MCP `registries: false`) unless the owner accepts that. Its score is a hint, not a verdict.
 

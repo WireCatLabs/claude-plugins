@@ -1,7 +1,7 @@
 {
   "name": "wirecat-memo",
   "displayName": "WireCat Memo",
-  "version": "0.117.0",
+  "version": "0.122.0",
   "description": "Find what you know about a person or a project across your messages, mail and notes through the memo command line tool.",
   "author": {
     "name": "WireCat",
@@ -22,7 +22,7 @@
   "metadata": {
     "source": {
       "npm": "@wirecat/cli-memo",
-      "skill": "wirecat-memo"
+      "skill": "cli-memo"
     }
   }
 }

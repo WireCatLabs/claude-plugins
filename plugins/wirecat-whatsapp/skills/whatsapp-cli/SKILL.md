@@ -3,6 +3,14 @@ name: whatsapp-cli
 description: >-
   Set up WhatsApp and read or send messages in the owner's personal account through wa. Use when asked to link or
   connect WhatsApp, find a WhatsApp chat or person, read a conversation, search messages, or send a message.
+metadata:
+  openclaw:
+    requires:
+      bins: [wa]
+    install:
+      - kind: node
+        package: "@wirecat/whatsapp-cli"
+        bins: [wa]
 ---
 
 # wa — the owner's personal WhatsApp from the command line
@@ -31,12 +39,12 @@ account, older history of one chat (`messages sync`), sending text (with `--repl
 `messages edit`, `messages delete` (for the owner only; `--for-everyone` for everyone), `messages download`,
 `messages forward`, `messages transcribe --local`, `messages star|unstar`, `messages pin|unpin` (every pin tells the chat; `--expire-time 24h|7d|30d`), `reactions add|remove`,
 `polls create|show|vote|voters`, `chats mark-read`, `chats mute|unmute`, `chats archive|unarchive|pin|unpin|mark-unread`,
-`chats delete|clear` (they ask first; not over MCP),
+`chats delete|clear` (in a terminal they ask first),
 `account update` (name, about and a square JPEG photo), `metadata sync` (a group's title and description, for
 `tags rebuild`), group admin
 (`chats create|join|leave|update`, a group photo by `chats update --photo` (a square JPEG of 190 to 720 pixels a
 side) or `--remove-photo`, `chats links show|reset`, `chats members list|fetch|add|remove`,
-`chats admins add|remove`, `chats requests list|confirm|reject`), `contacts info|block|unblock|lookup|sync`, `account privacy show|set`,
+`chats admins add|remove`, `chats requests list|confirm|reject`), `contacts show|block|unblock|lookup|sync`, `account privacy show|set`,
 `doctor --online`, `serve` and `watch`. Everything that reads the local store works.
 `account privacy set` has WhatsApp's settings only (last seen, online, photo, about, read receipts, groups, calls);
 `--read-receipts off` also stops the owner seeing others' receipts, and `contacts_except` is shown, never set.
@@ -80,13 +88,13 @@ the store does not hold yet needs its `…@g.us` id.
   `serve`. `--all` is refused: there is no chat list to walk.
 - **One connection per linked device.** WhatsApp drops the older of two connections. **While `serve` runs, every
   command for that profile that connects runs inside `serve`**, on its connection: sends, edits, deletions,
-  reactions, mark-read, downloads, group and people commands, `watch`, `doctor --online` and `wa <profile> mcp`.
+  reactions, mark-read, downloads, group and people commands, `watch`, `doctor --online` and `wa <profile> mcp serve`.
   Permissions and the send guard still apply. It never asks: a write at permission level `ask` needs `--yes`
   (`--allow-dangerous` for a deletion), or it is refused and says so. Never stop the owner's `serve`. If `serve`
   is starting or does not answer, the command fails; tell the owner. With no `serve`, `watch` and every command that
   connects take the device's lock; a second one is refused with exit `12` and names the holder. On Windows nothing
   goes through `serve` yet, so there a command that connects is refused that way while `serve` runs
-  (`serve (pid 4242)`): tell the owner, do not stop it. `wa personal mcp` keeps a connection it opened until two
+  (`serve (pid 4242)`): tell the owner, do not stop it. `wa personal mcp serve` keeps a connection it opened until two
   minutes pass without a call, and `serve` cannot start meanwhile.
 - **A change to a message needs it in the store.** WhatsApp addresses a message by its id *and* its sender, so
   `messages edit`, `messages delete`, `messages star|unstar`, `reactions add|remove`, `polls show|vote|voters` and
@@ -169,7 +177,8 @@ never pick one.
   output and paste the QR text block into the chat as a code block, exactly as printed, for the owner to scan in
   WhatsApp → Settings → Linked devices → Link a device. WhatsApp renews the code after 60 seconds and then about
   every 20 seconds: paste each new block at once and say the old one expired. With `--json` each code is also a
-  stderr line `{"event":"qr","qr":{"text",…}}`. Linking is not on MCP; with only MCP, ask the owner to run it.
+  stderr line `{"event":"qr","qr":{"text",…}}`. Linking is not on MCP; with only MCP, ask the owner to run it
+  or to link from WireCat Desktop (Tools → WhatsApp → Manage).
 - **Never ask for the phone number or a pairing code in the chat.** A pairing-code link (`--method phone`, or
   `session start phone`) is for the owner to run in their own terminal.
 
@@ -299,10 +308,12 @@ For `wa personal watch --jsonl`, read each message from the item record’s `dat
 keys. With `--events`, `data.event` names the change. Wait for the final `type: "end"` record and check
 `complete`; an absent end means the stream was cut. A source failure also returns a nonzero exit code.
 
-An agent without a terminal (Claude Desktop, Cursor) uses the MCP server instead: `wa personal mcp`. The profile's
-`permissions` decide which commands it offers, through `wa_tools_search`, `wa_read` and `wa_write`; there is no
-confirmation form. `wa personal mcp config` prints the entry with full paths. `wa personal mcp --http --public-url
-https://laptop.example.ts.net` (the owner's own tunnel address) serves behind the owner's tunnel with its own login.
+An agent that cannot run commands (a chat app such as Claude Desktop, a remote agent) uses the MCP server instead:
+`wa personal mcp serve`. The profile's `permissions` decide which commands it offers, the same as on the command line,
+through `wa_tools_search`, `wa_read` and `wa_write`; there is no confirmation form. When you can run commands, use
+the commands above instead of MCP. `wa personal mcp config` prints the entry with full paths.
+`wa personal mcp serve --http --public-url https://laptop.example.ts.net` (the owner's own tunnel address) serves behind
+the owner's tunnel with its own login.
 Never change permissions to get round a refusal. Guide:
 [MCP](https://github.com/WireCatLabs/whatsapp-cli/blob/main/docs/mcp.md).
 
