@@ -1,0 +1,28 @@
+{
+  "name": "wirecat-gcal",
+  "displayName": "WireCat for Google Calendar",
+  "version": "0.1.1",
+  "description": "Read, search and change your Google Calendar events, offline, through the gcal command line tool.",
+  "author": {
+    "name": "WireCat",
+    "url": "https://wirecat.dev"
+  },
+  "homepage": "https://wirecat.dev/en/docs/gcal",
+  "repository": "https://github.com/WireCatLabs/claude-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "wirecat",
+    "cli",
+    "skill"
+  ],
+  "documentationUrl": "https://wirecat.dev/en/docs/gcal",
+  "supportUrl": "https://github.com/WireCatLabs/gcal-cli/issues",
+  "privacyPolicyUrl": "https://wirecat.dev/en/privacy",
+  "termsOfServiceUrl": "https://wirecat.dev/en/terms",
+  "metadata": {
+    "source": {
+      "npm": "@wirecat/gcal-cli",
+      "skill": "gcal-cli"
+    }
+  }
+}

@@ -29,6 +29,10 @@
     {
       "name": "wirecat-memo",
       "source": "./plugins/wirecat-memo"
+    },
+    {
+      "name": "wirecat-gcal",
+      "source": "./plugins/wirecat-gcal"
     }
   ]
 }
