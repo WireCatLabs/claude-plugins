@@ -18,6 +18,7 @@ claude plugin install wirecat-tg@wirecat
 | `wirecat-whatsapp` | [WhatsApp](https://wirecat.dev/en/docs/wa) | `wa` |
 | `wirecat-zoom` | [Zoom](https://wirecat.dev/en/docs/zoom) | `zm` |
 | `wirecat-drive` | [Google Drive](https://wirecat.dev/en/docs/drive) | `drive` |
+| `wirecat-gcal` | [Google Calendar](https://wirecat.dev/en/docs/gcal) | `gcal` |
 | `wirecat-memo` | [Memo](https://wirecat.dev/en/docs/memo) | `memo` |
 
 ## Where the skills come from
