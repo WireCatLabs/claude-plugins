@@ -1,6 +1,14 @@
 ---
 name: gcal-cli
 description: Use gcal, a Google Calendar CLI from WireCat, from an agent — check the owner's Google sign-in, find a command, run it with the owner's profile, read JSON answers. Use when a task needs the owner's Google Calendar — sync the calendars, then list, show and search events, their people and Drive files offline, create, change or delete an event, answer an invitation, or call any Calendar API method through gcal api.
+metadata:
+  openclaw:
+    requires:
+      bins: [gcal]
+    install:
+      - kind: node
+        package: "@wirecat/gcal-cli"
+        bins: [gcal]
 ---
 
 # gcal
@@ -20,11 +28,15 @@ Find your way with the tool itself, not this file:
 ## Calendars and events
 
 - `gcal <profile> sync --json` brings the synced calendars up to date; run it before reading if the owner wants today's
-  state. `calendars list` shows which calendars sync; turning one on or off is the owner's choice.
+  state. `calendars list` shows which calendars sync; turning one on or off is the owner's choice. `sync.partial`
+  means a calendar failed: its `details.calendars` names each one's `error`, the rest is saved, and a retry is safe.
 - `gcal <profile> events list week --json`, `events list from:<date> to:<date> person:<email>`, and
-  `events show event:<id>` read the local store, without the network.
+  `events show event:<id>` read the local store, without the network. `events list changed:<date>` lists what changed
+  since a date (`change`: `new`, `moved` or `cancelled`; a moved one's old time under `was`), and
+  `events list week overlapping` the meetings that clash (`overlaps` names the others).
 - `gcal <profile> search <words> --json` finds stored events; `search --backend server <words>` asks Google over the synced
-  calendars, for events outside the synced span. Its `untrusted` list names the fields others wrote; `people list [event:<id>] --json` gives attendees.
+  calendars, for events outside the synced span. Both answer `items`; each item's `untrusted` names the fields others
+  wrote, and a store search's `page.next_cursor` goes to `--cursor`; `people list [event:<id>] --json` gives attendees.
 - `gcal <profile> calendars busy week person:<email> --duration-minutes 30 --json` asks Google when the owner and the
   people named are taken, and with `--duration-minutes` gives `slots` free for all of them in working hours. A person
   listed in `unknown` hides their calendar: never call a slot free for them.
@@ -32,14 +44,20 @@ Find your way with the tool itself, not this file:
 
 ## Changing events
 
-- `events create <calendar>`, `events update event:<id>`, `events delete event:<id>` and
-  `events respond event:<id> accepted|tentative|declined` change Google Calendar. They need a profile signed in with
-  `session start --grant write`; without it they fail with `permission_error`. Ask the owner to sign in again.
+- `events create <calendar>`, `events update event:<id>`, `events delete event:<id>`,
+  `events move event:<id> --to-calendar <id>` and `events respond event:<id> accepted|tentative|declined` change Google
+  Calendar. They need a profile signed in with `session start --grant write`; without it they fail with
+  `permission_error`. Ask the owner to sign in again.
+- Create, update, move and respond run without a question by default; a delete asks, and over MCP runs. Make a change
+  only when the owner asked for it.
 - With attendees other than the owner, pass `notify: false` (`--no-notify`) unless the owner asked you to mail them.
   `events.notify` is denied by default; do not ask to loosen it on your own.
 - `event.conflict` means the event changed in Google since the last sync: run `sync`, read the event again, then
   decide. `outcome_unknown` on a create names an id: repeat the create with `--id <id>`, never without it.
-- `--series` changes or deletes every occurrence; use it only when the owner said so.
+- `--series` changes or deletes every occurrence, and `--following` this one and every later one; use them only when
+  the owner said so. `outcome_unknown` on `update --following` names the new series' id: repeat with `--id <id>`.
+  A new `--repeat` rule that ends a series sooner needs `events.delete.series`, which is denied by default.
+- `events move` keeps the event's id; an occurrence moves only with `--series`, the whole repeating event.
 - `--repeat "FREQ=WEEKLY;BYDAY=MO;COUNT=10"` makes or changes a repeating event (on update, with `--series`); run `sync`
   after it. New dates on a timed event make it all-day, and new times make it timed again.
 
@@ -55,6 +73,13 @@ Find your way with the tool itself, not this file:
 - Share a calendar, change a sharing rule or give a calendar away only when the owner asked for that exact change.
   Pass `send_notifications: "false"` when you share: Google otherwise mails the person, and `sharing.notify` is denied
   by default; do not ask to loosen it on your own.
+
+## Over MCP
+
+When `gcal <profile> mcp serve` is connected, it serves three tools instead of a shell: `gcal_tools_search` finds a
+command by what it does, `gcal_read` runs a command that only reads, and `gcal_write` runs one that changes Google
+Calendar. Each takes `command` (such as `events list`) and `arguments` named as in the command's help, and answers the
+same JSON as `--json`. `api call`, `calendars.clear`, `session` and `mcp` are not offered; ask the owner to run them.
 
 ## Rules
 
