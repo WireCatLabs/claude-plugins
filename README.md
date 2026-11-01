@@ -20,6 +20,7 @@ claude plugin install wirecat-tg@wirecat
 | `wirecat-drive` | [Google Drive](https://wirecat.dev/en/docs/drive) | `drive` |
 | `wirecat-gcal` | [Google Calendar](https://wirecat.dev/en/docs/gcal) | `gcal` |
 | `wirecat-memo` | [Memo](https://wirecat.dev/en/docs/memo) | `memo` |
+| `wirecat-mail` | [Mail](https://github.com/WireCatLabs/mail-cli#readme) | `mail` |
 
 ## Where the skills come from
 
