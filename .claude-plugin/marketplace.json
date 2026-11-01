@@ -33,6 +33,10 @@
     {
       "name": "wirecat-gcal",
       "source": "./plugins/wirecat-gcal"
+    },
+    {
+      "name": "wirecat-mail",
+      "source": "./plugins/wirecat-mail"
     }
   ]
 }
