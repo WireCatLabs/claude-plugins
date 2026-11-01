@@ -1,7 +1,7 @@
 {
   "name": "wirecat-zoom",
   "displayName": "WireCat for Zoom",
-  "version": "0.59.0",
+  "version": "0.60.0",
   "description": "Archive your Zoom cloud recordings and search their transcripts and summaries through the zm command line tool.",
   "author": {
     "name": "WireCat",
