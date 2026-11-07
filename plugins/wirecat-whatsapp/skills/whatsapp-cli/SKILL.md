@@ -85,7 +85,16 @@ the store does not hold yet needs its `…@g.us` id.
 - **Older history** can only be asked of the owner's phone, 50 messages at a time, counting back from the oldest
   stored message of one chat: `wa <profile> messages sync <chat>`. The phone answers only with WhatsApp open on it:
   ask the owner to open it first. No answer is exit `timeout`, not an empty chat; a late answer is still saved by
-  `serve`. `--all` is refused: there is no chat list to walk.
+  `serve`. `--all` is refused: there is no chat list to walk. A chat with nothing stored (`not_found`) cannot be
+  asked about until `serve` saves its next message; tell the owner that, do not retry.
+- **Not all history is stored, on purpose.** The phone's history is saved within the profile's limits: one-to-one
+  chats 3 years (`history_dialog_days`), groups of more than 2 people 1 year (`history_group_days`), and nothing of
+  a group above 50 people (`history_group_members_max`). An answer that read a chat with skipped history says so:
+  `meta.complete: false`, `missing` with `field: "history_limits"`, and a `next` step. Say that to the owner
+  instead of "no messages"; `wa <profile> store status` lists the chats. When the owner asks for a chat in full,
+  `wa <profile> messages sync <chat> --full-history` keeps it whole from then on and fetches what the phone still
+  answers — only recent messages: the phone answers older history only once, when a device is linked. What the limits
+  skipped before comes back with the next link (`wa <profile> session end`, then `session start`), not by asking.
 - **One connection per linked device.** WhatsApp drops the older of two connections. **While `serve` runs, every
   command for that profile that connects runs inside `serve`**, on its connection: sends, edits, deletions,
   reactions, mark-read, downloads, group and people commands, `watch`, `doctor --online` and `wa <profile> mcp serve`.
@@ -183,8 +192,9 @@ never pick one.
   `session start phone`) is for the owner to run in their own terminal.
 
 A profile linked before is checked without linking again, and nothing is asked. Do not link a profile twice: a new
-link is a new device on the owner's phone. After linking, `wa personal server install` keeps the store filled in the
-background — only when the owner asked for it.
+link is a new device on the owner's phone. After linking, the phone sends history in parts for
+several minutes, only while WhatsApp is open on it, and only `serve` saves the late parts: suggest
+`wa personal server install` and keeping the phone open — install it only when the owner agrees.
 
 ## Output
 
@@ -197,7 +207,8 @@ background — only when the owner asked for it.
 - **Branch on the exit code, then on `error.code` and `error.reason` in the stderr object — never on the text**:
   `0` success, `2` bad input or something WhatsApp cannot do here, `4` not linked (or WhatsApp logged the device
   out), `5` the profile may not do this (its `permissions`; the error names the key), or WhatsApp banned or
-  restricted the account (do not retry; tell the owner), `6` not found — a chat, or a message the store lacks, `7`
+  restricted the account (do not retry; tell the owner; `account.reachout-restricted` refuses only new contacts,
+  until the date it names), `6` not found — a chat, or a message the store lacks, `7`
   the chat is not on the list of allowed recipients, or the change asks first and nobody answered (stop and ask the
   owner), `8` a limit (`sends_per_hour`, or WhatsApp's own: `account.rate-limited` holds every write, reactions and
   read receipts too, for 15 minutes), `12` another command holds the device (`device.in-use`: stop it or use `serve`), took it over
