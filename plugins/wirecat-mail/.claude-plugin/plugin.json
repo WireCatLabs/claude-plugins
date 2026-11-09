@@ -1,7 +1,7 @@
 {
   "name": "wirecat-mail",
   "displayName": "WireCat for Mail",
-  "version": "0.1.0",
+  "version": "0.23.0",
   "description": "Sync your mailbox over IMAP into a local store, read-only, through the mail command line tool.",
   "author": {
     "name": "WireCat",
