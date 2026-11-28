@@ -1,0 +1,28 @@
+{
+  "name": "wirecat-files",
+  "displayName": "WireCat Files",
+  "version": "0.0.0",
+  "description": "Search your notes folders, Obsidian vaults and imported PDF and Word files through the files command line tool.",
+  "author": {
+    "name": "WireCat",
+    "url": "https://wirecat.dev"
+  },
+  "homepage": "https://wirecat.dev/en/docs/files",
+  "repository": "https://github.com/WireCatLabs/claude-plugins",
+  "license": "Apache-2.0",
+  "keywords": [
+    "wirecat",
+    "cli",
+    "skill"
+  ],
+  "documentationUrl": "https://wirecat.dev/en/docs/files",
+  "supportUrl": "https://github.com/WireCatLabs/files-cli/issues",
+  "privacyPolicyUrl": "https://wirecat.dev/en/privacy",
+  "termsOfServiceUrl": "https://wirecat.dev/en/terms",
+  "metadata": {
+    "source": {
+      "npm": "@wirecat/files-cli",
+      "skill": "files-cli"
+    }
+  }
+}
