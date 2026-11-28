@@ -19,7 +19,8 @@ claude plugin install wirecat-tg@wirecat
 | `wirecat-zoom` | [Zoom](https://wirecat.dev/en/docs/zoom) | `zm` |
 | `wirecat-drive` | [Google Drive](https://wirecat.dev/en/docs/drive) | `drive` |
 | `wirecat-gcal` | [Google Calendar](https://wirecat.dev/en/docs/gcal) | `gcal` |
-| `wirecat-memo` | [Memo](https://wirecat.dev/en/docs/memo) | `memo` |
+| `wirecat` | [WireCat](https://wirecat.dev/en/docs/wcat) | `wcat` |
+| `wirecat-files` | [Files](https://wirecat.dev/en/docs/files) | `files` |
 | `wirecat-mail` | [Mail](https://github.com/WireCatLabs/mail-cli#readme) | `mail` |
 
 ## Where the skills come from

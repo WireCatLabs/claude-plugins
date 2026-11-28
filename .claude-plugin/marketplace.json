@@ -27,8 +27,12 @@
       "source": "./plugins/wirecat-drive"
     },
     {
-      "name": "wirecat-memo",
-      "source": "./plugins/wirecat-memo"
+      "name": "wirecat",
+      "source": "./plugins/wirecat"
+    },
+    {
+      "name": "wirecat-files",
+      "source": "./plugins/wirecat-files"
     },
     {
       "name": "wirecat-gcal",
